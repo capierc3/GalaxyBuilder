@@ -1,3 +1,5 @@
+package Controllers;
+
 import WorldBuilder.*;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
