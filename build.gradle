@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
+    id 'application'
+}
+
+javafx {
+    version = "17.0.2"
+    modules = [ 'javafx.controls' ]
+}
+
+application {
+    mainClass = 'app'
+}
+
+run {
+    standardInput = System.in
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    implementation 'org.xerial:sqlite-jdbc:3.36.0.2'
+    implementation 'org.openjfx:javafx-controls:17.0.2'
+}
+
+test {
+    useJUnitPlatform()
+}
