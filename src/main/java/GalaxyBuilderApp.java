@@ -10,8 +10,8 @@ public class GalaxyBuilderApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GalaxyBuilderApp.class.getResource("main.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 640, 400);
-        stage.setTitle("Hello!");
+        Scene scene = new Scene(fxmlLoader.load(), 1240, 780);
+        stage.setTitle("Galaxy Builder v0.1");
         stage.setScene(scene);
         stage.show();
     }

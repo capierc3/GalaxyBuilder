@@ -26,16 +26,19 @@ public class GalaxyBuilderController {
     private int index;
 
     public void initialize() {
+        leftLabel.setText("Sectors");
+        leftBtn.setText("New");
         ArrayList<Sector> sectors = GalaxyViewer.getSectors();
         VBox list = new VBox();
         for (Sector sector: sectors) {
-
             Label name = new Label();
             name.setText(sector.getName());
             name.setOnMouseClicked(event -> sectorClick(event.getSource().toString()));
             list.getChildren().add(name);
         }
         leftList.setContent(list);
+        rightLabel.setText("");
+        rightList.setContent(null);
     }
 
     public void sectorClick(String source) {
@@ -56,6 +59,7 @@ public class GalaxyBuilderController {
     private void systemClick(String source) {
         // set left
         leftBtn.setText("Back");
+        leftBtn.setOnMouseClicked(event -> initialize());
         ArrayList<String> systemNames = GalaxyViewer.getSystemNames(sector);
         leftLabel.setText(sector);
         VBox lList = new VBox();
@@ -75,7 +79,7 @@ public class GalaxyBuilderController {
         VBox rList = new VBox();
         for (int i = 0; i < sys.getOrderSystem().size(); i++) {
             Label name = new Label(sys.getOrderSystem().get(i).getName());
-            name.setId(Integer.toString(i));
+            name.setId(system + ":" + i);
             name.setOnMouseClicked(event -> bodyClick(event.getSource().toString()));
             rList.getChildren().add(name);
         }
@@ -83,10 +87,12 @@ public class GalaxyBuilderController {
     }
 
     private void bodyClick(String source) {
+        String values = source.substring(source.indexOf("[") + 1, source.indexOf("]"))
+                .split(",")[0]
+                .split("=")[1];
+        int idx = Integer.parseInt(values.split(":")[1]);
+        String system = values.split(":")[0];
         StarSystem sys = GalaxyDataBase.findSystem(system);
-        String values = source.substring(source.indexOf("[") + 1, source.indexOf("]"));
-        int idx = Integer.parseInt(values.split(",")[0].split("=")[1]);
-        mainTxt.setText(sys.getOrderSystem().get(idx).getName() + "\n" +
-                sys.getOrderSystem().get(idx).toString());
+        mainTxt.setText(sys.getOrderSystem().get(idx).toString());
     }
 }
