@@ -11,6 +11,7 @@ import java.util.Scanner;
  */
 public class app {
     public static void main(String[] args) {
+        new GalaxyDataBase();
         while (true) {
             System.out.println("////////////////////////////////////");
             System.out.println("Welcome to the Galaxy Viewer CLI 0.1");
@@ -58,7 +59,6 @@ public class app {
                     }
                 }
             } else {
-                new GalaxyDataBase();
                 System.out.println("Current Sectors locations:");
                 ArrayList<Sector> sectors = GalaxyViewer.getSectors();
                 if (sectors.size() == 0) {
