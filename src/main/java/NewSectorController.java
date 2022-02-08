@@ -1,9 +1,5 @@
 import WorldBuilder.*;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.ParallelCamera;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -11,7 +7,6 @@ import javafx.stage.Stage;
 import utils.Dice;
 import utils.SQLite;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -110,9 +105,7 @@ public class NewSectorController {
         int y = Integer.parseInt(yLoc.getText());
         int z = Integer.parseInt(zLoc.getText());
         Sector sector = new Sector(sectorName.getText(), population, x, y, z);
-        //Close window
-//        Stage stage = (Stage) cancelBtn.getScene().getWindow();
-//        stage.close();
+        // sets the scene to show database progress
         nameLabel.setText("Adding " + sector.getName() + " to database\nPlease wait.");
         mainBox.getChildren().clear();
         mainBox.getChildren().add(nameLabel);
@@ -125,19 +118,21 @@ public class NewSectorController {
         box.getChildren().add(new Label("Adding to database"));
         scroll.setContent(box);
         mainBox.getChildren().add(scroll);
+        // starts new thread to add sector to database
         new Thread( () -> addEntry(sector,box,scroll)).start();
         //Open logging window
 
     }
 
     /**
-     * Adds a new entry to the database. If its an sector or system it adds the entries within to the database.
+     * Adds a new entry to the database. If it's a sector or system it adds the entries within to the database.
      * @param entry GalaxyDataBaseItem to be added.
      */
     public void addEntry(GalaxyDataBaseItem entry, VBox vBox, ScrollPane scroll){
         ArrayList<String> sqls = new ArrayList<>();
         sqls.add(entry.getSQLInsert());
         SQLite.AddRecord("Galaxy",sqls,entry.getTableNames());
+        // updates GUI everytime something is added
         Platform.runLater(() -> {
             mainBox.getChildren().remove(scroll);
             Label text = new Label(entry.getTableNames() + ": " + entry.getName() + " added!");
@@ -155,6 +150,7 @@ public class NewSectorController {
                     }
                 }
             }
+            // updates GUI when sector is completely added
             Platform.runLater(() -> {
                 cancelBtn.setText("Done");
                 mainBox.getChildren().add(cancelBtn);

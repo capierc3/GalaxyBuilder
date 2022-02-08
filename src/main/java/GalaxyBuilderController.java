@@ -112,6 +112,9 @@ public class GalaxyBuilderController {
         mainTxt.setText(sys.getOrderSystem().get(idx).toString());
     }
 
+    /**
+     * Opens a new window to create a new Sector
+     */
     private void newClick() {
         FXMLLoader fxmlLoader = new FXMLLoader(GalaxyBuilderApp.class.getResource("newSector.fxml"));
         try {
