@@ -1,7 +1,5 @@
 package WorldBuilder;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -448,7 +446,7 @@ public class StarSystem implements GalaxyDataBaseItem{
 
     @Override
     public String getTableNames() {
-        return "Systems";
+        return tableName;
     }
 
     @Override

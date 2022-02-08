@@ -12,7 +12,7 @@ public class Planet extends Body {
     /**SQL information*/
     public static final String tableName = "Planets";
     public final String[] keys = {"Name","Type","Size","Radius","Temp","Orbit_Length","location","dist_from_sun","Atmosphere","Density"
-            ,"Gravity","Circumference","Tilt","Rotation","Liquid","Orbiting_Bodies","System_Name"};
+            ,"Gravity","Circumference","Tilt","Rotation","Liquid","Orbiting_Bodies","System_Name","AtmoType"};
 
     /**the int value for the size of the planet for the size String*/
     private int planetSize;
@@ -318,10 +318,11 @@ public class Planet extends Body {
     @Override
     public String getSQLInsert() {
         return " INSERT INTO Planets" + "(Name,Type,Size,Radius,Temp,Orbit_Length,location,dist_from_sun,Atmosphere,Density" +
-                ",Gravity,Circumference,Tilt,Rotation,Liquid,Orbiting_Bodies,System_Name)" +
+                ",Gravity,Circumference,Tilt,Rotation,Liquid,Orbiting_Bodies,System_Name,AtmoType)" +
                 "VALUES ('" + name + "','" + type + "','" + size + "','" + radius + "','" + temp + "','" + orbitLength + "','" + location + "','" +
                 distanceSun + "','" +atmoThickness+"("+atmoRating+"APR)" + "','" + density + "','"+ gravity + "','" + circumference + "','"
-                + axilTilt+"("+tiltDegree+"*)" + "','" + rotation+" hr/day "+rotationDir+ "','" + liquidType+" ("+liquidAmt+"%)" + "','" +orbitingBodies.length +"','" +systemName + "');";
+                + axilTilt+"("+tiltDegree+"*)" + "','" + rotation+" hr/day "+rotationDir+ "','" + liquidType+" ("+liquidAmt+"%)" + "','" +orbitingBodies.length +"','" +systemName +
+                "','" + atmosphere + "');";
     }
 
     public void readSQL(String[] values){
@@ -347,6 +348,6 @@ public class Planet extends Body {
         //find orbiting bodies//
         //values[15]
         systemName = values[16];
-
+        atmosphere = values[17];
     }
 }
