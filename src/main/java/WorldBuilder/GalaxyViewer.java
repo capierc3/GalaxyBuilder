@@ -34,7 +34,7 @@ public class GalaxyViewer {
                 names.add(rs.getString(1));
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            //throwables.printStackTrace();
             names.add("ERROR");
         }
         return names;

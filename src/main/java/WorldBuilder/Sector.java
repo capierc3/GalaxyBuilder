@@ -48,7 +48,8 @@ public class Sector implements GalaxyDataBaseItem {
      * @param y int y location
      * @param z int z location
      */
-    public Sector(Population population,int x, int y, int z){
+    public Sector(String name, Population population,int x, int y, int z){
+        this.name = name;
         // sets location data
         this.x = x;
         this.y = y;
@@ -56,8 +57,6 @@ public class Sector implements GalaxyDataBaseItem {
         this.origin = x == 0 && y == 0 && z == 0;
         // creates blank grid
         grid = new StarSystem[10][10];
-        // gets random name
-        findName();
         // randomize amount of systems
         amtSystems = Dice.Roller(1,10)+20;
         // loop to create systems and place into the sector
@@ -78,29 +77,6 @@ public class Sector implements GalaxyDataBaseItem {
             }
         }
         id = "Sec"+x+y+z;
-    }
-
-    /**
-     * Searches a text file of names and randomly picks one and sets it as the name of the sector.
-     * Text file "StarNamesPrefix.txt" needed in the WorldBuilder directory.
-     */
-    private void findName(){
-        ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        InputStream is = cl.getResourceAsStream("StarNamesPrefix.txt");
-        assert is != null;
-        Scanner in = new Scanner(is);
-        int roll= Dice.Roller(1,1000);
-        int i = 1;
-        String line = in.nextLine();
-        while (in.hasNext()){
-            if (i==roll){
-                this.name = line.replace(i+" ","");
-                break;
-            } else {
-                i++;
-                line = in.nextLine();
-            }
-        }
     }
 
     /**

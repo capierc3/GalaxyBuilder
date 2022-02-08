@@ -2,12 +2,13 @@ import WorldBuilder.GalaxyDataBase;
 import WorldBuilder.GalaxyViewer;
 import WorldBuilder.Sector;
 import WorldBuilder.StarSystem;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GalaxyBuilderController {
@@ -23,11 +24,14 @@ public class GalaxyBuilderController {
 
     private String sector;
     private String system;
-    private int index;
 
+    /**
+     * Initialize the fresh app
+     */
     public void initialize() {
         leftLabel.setText("Sectors");
         leftBtn.setText("New");
+        leftBtn.setOnMouseClicked(event -> newClick());
         ArrayList<Sector> sectors = GalaxyViewer.getSectors();
         VBox list = new VBox();
         for (Sector sector: sectors) {
@@ -41,6 +45,10 @@ public class GalaxyBuilderController {
         rightList.setContent(null);
     }
 
+    /**
+     * Event handler for clicking on a sector name
+     * @param source event source string
+     */
     public void sectorClick(String source) {
         sector = source.split("'")[1].replace("'","");
         ArrayList<String> systemNames = GalaxyViewer.getSystemNames(sector);
@@ -56,6 +64,10 @@ public class GalaxyBuilderController {
         rightList.setContent(list);
     }
 
+    /**
+     * Event handler for clicking on a System name
+     * @param source event source
+     */
     private void systemClick(String source) {
         // set left
         leftBtn.setText("Back");
@@ -86,6 +98,10 @@ public class GalaxyBuilderController {
         rightList.setContent(rList);
     }
 
+    /**
+     * Event handler for clicking on a system body
+     * @param source event source
+     */
     private void bodyClick(String source) {
         String values = source.substring(source.indexOf("[") + 1, source.indexOf("]"))
                 .split(",")[0]
@@ -94,5 +110,20 @@ public class GalaxyBuilderController {
         String system = values.split(":")[0];
         StarSystem sys = GalaxyDataBase.findSystem(system);
         mainTxt.setText(sys.getOrderSystem().get(idx).toString());
+    }
+
+    private void newClick() {
+        FXMLLoader fxmlLoader = new FXMLLoader(GalaxyBuilderApp.class.getResource("newSector.fxml"));
+        try {
+            Stage stage = new Stage();
+            Scene scene = new Scene(fxmlLoader.load(), 640, 400);
+            stage.setTitle("Create new Sector");
+            stage.setScene(scene);
+            stage.setOnHidden(event -> initialize());
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

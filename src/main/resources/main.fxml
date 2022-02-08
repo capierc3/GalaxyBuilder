@@ -46,7 +46,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="774.0" maxWidth="1024.0" prefHeight="774.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GalaxyBuilderController">
+<VBox maxHeight="780.0" maxWidth="1240.0" prefHeight="780.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GalaxyBuilderController">
     <MenuBar VBox.vgrow="NEVER">
         <Menu mnemonicParsing="false" text="File">
             <MenuItem fx:id="menuNew" mnemonicParsing="false" text="New" />
@@ -102,8 +102,14 @@
             <center>
               <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <TextArea fx:id="mainTxt" prefHeight="747.0" prefWidth="798.0" />
-               </children></AnchorPane>
+                  <TextArea fx:id="mainTxt" prefHeight="747.0" prefWidth="798.0">
+                     <opaqueInsets>
+                        <Insets top="10.0" />
+                     </opaqueInsets></TextArea>
+               </children>
+               <opaqueInsets>
+                  <Insets top="10.0" />
+               </opaqueInsets></AnchorPane>
             </center>
         </BorderPane>
     </AnchorPane>
