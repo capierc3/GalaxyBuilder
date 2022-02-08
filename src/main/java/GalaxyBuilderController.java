@@ -1,5 +1,3 @@
-package Controllers;
-
 import WorldBuilder.GalaxyDataBase;
 import WorldBuilder.GalaxyViewer;
 import WorldBuilder.Sector;
@@ -115,7 +113,7 @@ public class GalaxyBuilderController {
     }
 
     private void newClick() {
-        FXMLLoader fxmlLoader = new FXMLLoader(menuNew.getClass().getResource("newSector.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(GalaxyBuilderApp.class.getResource("newSector.fxml"));
         try {
             Stage stage = new Stage();
             Scene scene = new Scene(fxmlLoader.load(), 640, 400);

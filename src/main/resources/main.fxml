@@ -46,7 +46,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="780.0" maxWidth="1240.0" prefHeight="780.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.GalaxyBuilderController">
+<VBox maxHeight="780.0" maxWidth="1240.0" prefHeight="780.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GalaxyBuilderController">
     <MenuBar VBox.vgrow="NEVER">
         <Menu mnemonicParsing="false" text="File">
             <MenuItem fx:id="menuNew" mnemonicParsing="false" text="New" />
