@@ -1,10 +1,10 @@
-# GalaxyBuilder
+# Galaxy Builder
 Theres a lot of software that gives tools for world building in a single world setting, This will be for people who need to build whole galaxies.
 Build custom worlds and spacestations and keep track of diffrent governing bodies in a sprawling galaxy.
 
 This is currently in very very early development, limited uses for now but the ceiling is high.
 
-### Current build V 0.01
+### Current build: V 0.01
 #### To run:
 gradle run
 
