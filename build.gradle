@@ -1,17 +1,17 @@
 plugins {
     id 'java'
     id 'maven-publish'
-    id 'org.openjfx.javafxplugin' version '0.0.9'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
     id 'application'
 }
 
 javafx {
     version = "17.0.2"
-    modules = [ 'javafx.controls' ]
+    modules = [ 'javafx.controls' , 'javafx.fxml']
 }
 
 application {
-    mainClass = 'app'
+    mainClass = 'GalaxyBuilderApp'
 }
 
 run {
