@@ -84,10 +84,16 @@ public class GalaxyBuilderController {
         }
         leftList.setContent(lList);
 
-        // set right
+        // set center txt
         String system = source.split("'")[1].replace("'","");
-        rightLabel.setText(system);
         StarSystem sys = GalaxyDataBase.findSystem(system);
+        mainTxt.setText("Name: " + sys.getName() + "\n" +
+                "Number of Stars: " + sys.getStars().length + "\n" +
+                "Size: " + sys.getSize() + " AU \n" +
+                "Habitable Zone: (" + sys.getHabitZone()[0] + " - " + sys.getHabitZone()[1] + ")\n");
+
+        // set right
+        rightLabel.setText(system);
         VBox rList = new VBox();
         for (int i = 0; i < sys.getOrderSystem().size(); i++) {
             Label name = new Label(sys.getOrderSystem().get(i).getName());
