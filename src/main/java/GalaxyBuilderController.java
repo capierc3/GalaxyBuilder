@@ -21,7 +21,6 @@ public class GalaxyBuilderController {
     public Label rightLabel;
     public ScrollPane rightList;
     public TextArea mainTxt;
-
     private String sector;
     private String system;
 
@@ -32,6 +31,7 @@ public class GalaxyBuilderController {
         leftLabel.setText("Sectors");
         leftBtn.setText("New");
         leftBtn.setOnMouseClicked(event -> newClick());
+        mainTxt.setText("Pick a sector to view");
         ArrayList<Sector> sectors = GalaxyViewer.getSectors();
         VBox list = new VBox();
         for (Sector sector: sectors) {
@@ -62,6 +62,7 @@ public class GalaxyBuilderController {
             list.getChildren().add(name);
         }
         rightList.setContent(list);
+        mainTxt.setText("Select a System");
     }
 
     /**
@@ -69,21 +70,13 @@ public class GalaxyBuilderController {
      * @param source event source
      */
     private void systemClick(String source) {
-        // set left
-        leftBtn.setText("Back");
-        leftBtn.setOnMouseClicked(event -> initialize());
-        ArrayList<String> systemNames = GalaxyViewer.getSystemNames(sector);
-        leftLabel.setText(sector);
-        VBox lList = new VBox();
-        for (String systemName: systemNames) {
-            system = GalaxyDataBase.findSystem(systemName).getName();
-            Label name = new Label();
-            name.setText(system);
-            name.setOnMouseClicked(event -> systemClick(event.getSource().toString()));
-            lList.getChildren().add(name);
+        // set left, if not already changed
+        if (leftLabel.getText().equalsIgnoreCase("Sectors")) {
+            leftBtn.setText("Back");
+            leftBtn.setOnMouseClicked(event -> initialize());
+            leftLabel.setText(rightLabel.getText());
+            leftList.setContent(rightList.getContent());
         }
-        leftList.setContent(lList);
-
         // set center txt
         String system = source.split("'")[1].replace("'","");
         StarSystem sys = GalaxyDataBase.findSystem(system);
