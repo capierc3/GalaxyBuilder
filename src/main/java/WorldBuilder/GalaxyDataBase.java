@@ -146,23 +146,20 @@ public class GalaxyDataBase {
         StarSystem s = new StarSystem();
         try {
             String[] values = new String[s.getKeys().length];
-            String sql = "SELECT * FROM " + s.getTableNames();
+            String sql = "SELECT * FROM " + s.getTableNames() + " WHERE Name='" + name + "'";
+            System.out.println(sql);
             Connection conn = SQLite.connect(dbName);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                if (rs.getString("Name").equalsIgnoreCase(name)) {
-                    for (int i = 0; i < s.getKeys().length; i++) {
-                        values[i] = rs.getString(s.getKeys()[i]);
-                    }
-                }
+            for (int i = 0; i < s.getKeys().length; i++) {
+                values[i] = rs.getString(s.getKeys()[i]);
             }
             s.readSQL(values);
             rs.close();
             stmt.close();
             conn.close();
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            System.out.println(e);
         }
         return s;
     }
