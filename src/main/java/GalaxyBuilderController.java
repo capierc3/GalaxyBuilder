@@ -2,14 +2,27 @@ import WorldBuilder.GalaxyDataBase;
 import WorldBuilder.GalaxyViewer;
 import WorldBuilder.Sector;
 import WorldBuilder.StarSystem;
+import com.sun.javafx.geom.Rectangle;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Box;
+import javafx.scene.shape.CullFace;
+import javafx.scene.shape.Sphere;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GalaxyBuilderController {
 
@@ -20,7 +33,8 @@ public class GalaxyBuilderController {
     public ScrollPane leftList;
     public Label rightLabel;
     public ScrollPane rightList;
-    public TextArea mainTxt;
+    //public TextArea mainTxt;
+    public Pane viewPane;
     private String sector;
     private String system;
 
@@ -31,7 +45,7 @@ public class GalaxyBuilderController {
         leftLabel.setText("Sectors");
         leftBtn.setText("New");
         leftBtn.setOnMouseClicked(event -> newClick());
-        mainTxt.setText("Pick a sector to view");
+        //mainTxt.setText("Pick a sector to view");
         ArrayList<Sector> sectors = GalaxyViewer.getSectors();
         VBox list = new VBox();
         for (Sector sector: sectors) {
@@ -40,9 +54,35 @@ public class GalaxyBuilderController {
             name.setOnMouseClicked(event -> sectorClick(event.getSource().toString()));
             list.getChildren().add(name);
         }
+        setView(sectors);
         leftList.setContent(list);
         rightLabel.setText("");
         rightList.setContent(null);
+    }
+
+    private void setView(ArrayList<Sector> sectors) {
+
+        Group root = new Group();
+
+        Sphere star = new Sphere(50);
+        PhongMaterial material = new PhongMaterial();
+        material.setDiffuseColor(Color.YELLOW);
+        star.setMaterial(material);
+        root.getChildren().add(star);
+
+        final int width = 789;
+        final int height = 747;
+        SubScene viewer = new SubScene(root,width,height);
+        viewer.setFill(Color.BLACK);
+
+        PerspectiveCamera camera = new PerspectiveCamera(false);
+        camera.setTranslateX(-width/2.0);
+        camera.setTranslateY(-height/2.0);
+        camera.setTranslateZ(0);
+        viewer.setCamera(camera);
+
+        viewPane.getChildren().add(viewer);
+
     }
 
     /**
@@ -62,7 +102,7 @@ public class GalaxyBuilderController {
             list.getChildren().add(name);
         }
         rightList.setContent(list);
-        mainTxt.setText("Select a System");
+        //mainTxt.setText("Select a System");
     }
 
     /**
@@ -80,10 +120,10 @@ public class GalaxyBuilderController {
         // set center txt
         String system = source.split("'")[1].replace("'","");
         StarSystem sys = GalaxyDataBase.findSystem(system);
-        mainTxt.setText("Name: " + sys.getName() + "\n" +
-                "Number of Stars: " + sys.getStars().length + "\n" +
-                "Size: " + sys.getSize() + " AU \n" +
-                "Habitable Zone: (" + sys.getHabitZone()[0] + " - " + sys.getHabitZone()[1] + ")\n");
+        //mainTxt.setText("Name: " + sys.getName() + "\n" +
+                //"Number of Stars: " + sys.getStars().length + "\n" +
+                //"Size: " + sys.getSize() + " AU \n" +
+                //"Habitable Zone: (" + sys.getHabitZone()[0] + " - " + sys.getHabitZone()[1] + ")\n");
 
         // set right
         rightLabel.setText(system);
@@ -108,7 +148,7 @@ public class GalaxyBuilderController {
         int idx = Integer.parseInt(values.split(":")[1]);
         String system = values.split(":")[0];
         StarSystem sys = GalaxyDataBase.findSystem(system);
-        mainTxt.setText(sys.getOrderSystem().get(idx).toString());
+        //mainTxt.setText(sys.getOrderSystem().get(idx).toString());
     }
 
     /**
@@ -128,4 +168,6 @@ public class GalaxyBuilderController {
         }
 
     }
+
+
 }
